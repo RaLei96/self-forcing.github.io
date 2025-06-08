@@ -1,1 +1,0 @@
-Please open the attached local website [index.html](index.html) for the supplemental material content.
