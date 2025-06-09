@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Self Forcing</title>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleButton = document.getElementById('toggleButton');
+      const tocContent = document.getElementById('tocContent');
+      const tocHeader = document.querySelector('.toc-header');
+
+      function toggleMenu() {
+        tocContent.classList.toggle('collapsed');
+        toggleButton.textContent = tocContent.classList.contains('collapsed') ? '▶' : '▼';
+      }
+
+      tocHeader.addEventListener('click', toggleMenu);
+    });
+
+  </script>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans&family=Noto+Sans&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="preload" href="./static/css/index.css" as="style">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/bulma-carousel.min.js"></script>
+  <script defer src="./static/js/bulma-slider.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+
+  <style>
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .video-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .video-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-item video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .prompt-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6), transparent);
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .video-item:hover .prompt-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .video-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+<!--   <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <br>
+
+            <h1 class="title is-1 publication-title">Self Forcing: Bridging Training and Inference in Autoregressive Video Diffusion <br> </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <br>
+            <h1 class="title is-1 publication-title" style="margin-bottom:0rem">Self Forcing</h1>
+            <h2 class="title is-3 publication-title">Bridging the Train-Test Gap in Autoregressive Video Diffusion</h2>
+
+            <!-- <div class="is-size-5 column has-text-centered"> -->
+              <!-- <strong>CVPR 2025</strong> -->
+            <!-- </div> -->
+            <p><a href="index.html">[Back to main page]</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We introduce Self Forcing, a novel training paradigm for autoregressive video diffusion models. It addresses the longstanding issue of exposure bias, where models trained on ground-truth context must generate sequences conditioned on their own imperfect outputs during inference. Unlike prior methods that denoise future frames based on ground-truth context frames, Self Forcing conditions each frame's generation on previously self-generated outputs by performing autoregressive rollout with key-value(KV) caching during training. This strategy enables supervision through a holistic loss at the video level that directly evaluates the quality of the entire generated sequence, rather than relying solely on traditional frame-wise objectives. To ensure training efficiency, we employ a few-step diffusion model along with a stochastic gradient truncation strategy, effectively balancing computational cost and performance. We further introduce a rolling KV cache mechanism that enables efficient autoregressive video extrapolation. Extensive experiments demonstrate that our approach achieves real-time streaming video generation with sub-second latency on a single GPU, while matching or even surpassing the generation quality of significantly slower and non-causal diffusion models.
+            </p>
+          </div>
+        </div>
+      </div>
+      </div><br>
+      <!--/ Abstract. -->
+  <!-- </section> --> -->
+
+  <hr>
+  <div class="container " id="text2short">
+    <h2 id="obj-comparison" class="title is-3 has-text-centered">5-second Videos</h2>
+  </div>
+
+  <br>
+
+  <div class="video-grid">
+
+    <!-- <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A slow-motion shot of a fiery volcanic landscape, with molten lava erupting from deep craters. The c-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A slow-motion shot of a fiery volcanic landscape, with molten lava erupting from deep craters. The camera flies through the lava, capturing the intense heat and dramatic splashes as they hit the lens. The lighting is cinematic and moody, casting dramatic shadows and highlighting the vivid orange and red hues. The color grade is high-contrast and dramatic, emphasizing the raw power of the eruption. The background features towering cliffs and dense smoke, creating a sense of awe and danger. A dynamic overhead view, providing a thrilling and immersive experience.</p>
+    </div> -->
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A close-up shot of a majestic waterfall, capturing the dynamic movement of the water as it crashes d-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A close-up shot of a majestic waterfall, capturing the dynamic movement of the water as it crashes down in a cascade of frothy white waves. The water splashes and swirls, creating a sense of motion and energy. The background features a lush green forest, with sunlight filtering through the leaves, casting dappled shadows. The camera angle emphasizes the force and beauty of the water, with droplets flying and mist rising into the air. The overall scene has a crisp, vivid quality, highlighting the natural movement and power of the waterfall.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A cinematic scene in the style of a fantasy drama, depicting a person walking through a serene field-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A cinematic scene in the style of a fantasy drama, depicting a person walking through a serene field filled with floating lanterns. Each step causes the lanterns to light up, casting a warm, ethereal glow. The person, dressed in flowing, traditional oriental attire, moves gracefully, their expression serene yet slightly contemplative. The background features a tranquil night sky with a few stars and a crescent moon, creating a dreamlike atmosphere. The camera angle is from behind, capturing the person from a medium shot perspective, highlighting their natural movements and the luminous lanterns around them.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A close-up shot of a woman in a noir-inspired style, with smoky lighting and a blurred background hi-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A close-up shot of a woman in a noir-inspired style, with smoky lighting and a blurred background hinting at a dimly lit alley. She holds a cigarette between her fingers, her gaze fixed ahead with a slight hint of determination and resignation. Her hair, styled in loose waves, frames her face softly. She wears a black leather jacket over a red blouse, and her posture is relaxed yet somewhat tense. The cigarette smoke forms a gentle haze around her, adding to the atmospheric mood. Her expression is one of contemplation, with a subtle smile playing on her lips. A medium close-up from a slightly downward angle, capturing her facial expression and the cigarette in detail.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A dramatic water fountain scene in the style of a surrealistic painting, where instead of water, coi-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A dramatic water fountain scene in the style of a surrealistic painting, where instead of water, coins flow out in a steady stream from the fountain's mouth. The fountain itself is ornate, with intricate carvings and a classical design. Coins of various denominations and eras cascade down in a continuous waterfall, reflecting the light and creating a shimmering effect. The background is a blurred cityscape with tall buildings and a setting sun, adding a sense of mystery and depth. A medium shot from a slightly elevated angle, capturing both the intricate details of the fountain and the expansive urban backdrop.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A dynamic aerial drone shot in a vibrant nature documentary style, capturing a drone rapidly acceler-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A dynamic aerial drone shot in a vibrant nature documentary style, capturing a drone rapidly accelerating through a dense forest. The drone weaves between towering trees, their branches reaching out like arms, creating a natural obstacle course. The forest floor is carpeted with moss and fallen leaves, with dappled sunlight filtering through the canopy. The drone's camera captures the rich greens of the foliage and the occasional glimpse of a small stream winding through the woods. The image has a crisp, high-definition quality, emphasizing the movement and the lush environment. A high-angle, fast-paced aerial view following the drone's flight path.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A close-up of honey being drizzled onto pancakes, the thick golden liquid flowing slowly and smoothl-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A cinematic scene in the style of a fantasy drama, depicting a person walking through a serene field filled with floating lanterns. Each step causes the lanterns to light up, casting a warm, ethereal glow. The person, dressed in flowing, traditional oriental attire, moves gracefully, their expression serene yet slightly contemplative. The background features a tranquil night sky with a few stars and a crescent moon, creating a dreamlike atmosphere. The camera angle is from behind, capturing the person from a medium shot perspective, highlighting their natural movements and the luminous lanterns around them.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A serene and tranquil scene captured in a naturalistic photography style, depicting the gentle bubbl-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A serene and tranquil scene captured in a naturalistic photography style, depicting the gentle bubbling and evaporation of water in a hot spring. Steam rises gracefully, creating a mist that drifts across the surrounding landscape, enhancing the ethereal atmosphere. The hot spring is nestled in a lush forest, with greenery and rocks visible in the background. The water bubbles gently, creating ripples that reflect the soft sunlight filtering through the trees. The mist adds a mystical quality to the scene, with a soft, warm glow in the air. The camera angle is from a low elevation, capturing the entire scene with a wide-angle lens.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/Time-lapse video of a gnome meticulously constructing.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">Time-lapse video of a gnome meticulously constructing a miniature house in a cozy forest setting. The gnome wears a pointy hat and a green tunic, displaying focused and determined expressions as he works. He uses tiny tools and materials like twigs, leaves, and small stones to build the house, which features a thatched roof and a small chimney. The forest background includes tall trees, dappled sunlight, and various small plants. The camera remains static throughout the process, capturing each step of the construction from a medium shot perspective.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/An adorable kangaroo in a green floral dress and a wide-brimmed sun hat takes a leisurely stroll thr-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">An adorable kangaroo in a green floral dress and a wide-brimmed sun hat takes a leisurely stroll through Antarctica during a fierce winter storm. The kangaroo has soft, fuzzy fur and large, curious eyes, looking around with a gentle smile. Its dress flutters slightly in the strong winds, and the sun hat adds a whimsical touch. The background features a dramatic winter landscape with swirling snow and towering ice formations. The camera angle is from behind, capturing the kangaroo in a medium shot, emphasizing its natural and joyful movement amidst the harsh yet beautiful environment.</p>
+    </div>
+  </div>
+
+  <hr>
+  <div class="container " id="text2short">
+    <h2 id="obj-comparison" class="title is-3 has-text-centered">10-second Videos</h2>
+  </div>
+
+  <div class="video-grid">
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/An old man in purple overalls and cowboy boots takes a pleasant stroll through the streets of Mumbai-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">An old man in purple overalls and cowboy boots takes a pleasant stroll through the streets of Mumbai, India, during a winter storm. His weathered face is framed by a thin beard, and his eyes, though weary, sparkle with a sense of adventure. He walks with a steady gait, his arms swinging lightly at his sides, and his hat pulled down to shield his face from the cold rain. The storm clouds loom overhead, casting dramatic shadows, while the city bustles around him, with people huddled under umbrellas and taxis honking in the background. The streets are slick with rain, and water pools in the gutters. The old man's movements are deliberate and purposeful, adding a touch of warmth to the otherwise harsh scene. A dynamic shot capturing the old man from a slightly elevated angle, emphasizing his journey through the storm.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-5s/A cinematic 35mm film-style extreme close-up of a gray-haired man in his 60s, deeply engrossed in th-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A cinematic 35mm film-style extreme close-up of a gray-haired man in his 60s, deeply engrossed in thought about the history of the universe as he sits at a Parisian café. His weathered face, adorned with a full beard, conveys a professorial air. His eyes are fixed on people walking off-screen, lost in contemplation. He is dressed in a woolen suit coat and a button-down shirt, wearing a brown beret and glasses. The background showcases the bustling Parisian streets and cityscape, with golden light illuminating the scene. The depth of field creates a sense of depth, and the lighting is cinematic, highlighting his subtle, closed-mouth smile as if he has just discovered the answer to life's mysteries. A medium shot with a slight overhead angle.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-10s/A dynamic speedboat speeding across a tranquil lake, generating a massive wake that churns the water-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A dynamic speedboat speeding across a tranquil lake, generating a massive wake that churns the water behind it. The boat is sleek and powerful, with its engine roaring to life. The sun casts long shadows on the rippling water, highlighting the wake. The scene is captured from a low-angle perspective, emphasizing the speed and energy of the boat. The background shows rolling hills and a few trees reflected in the water, adding depth and a serene backdrop to the vibrant moment.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-10s/An astronaut running through a narrow alley in Rio de Janeiro, Brazil. The astronaut is dressed in a-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">An astronaut running through a narrow alley in Rio de Janeiro, Brazil. The astronaut is dressed in a bright white spacesuit with a helmet that reflects sunlight. The spacesuit is adorned with various technical patches and has a reflective texture. The astronaut's movements are energetic and dynamic, with one hand on their hip and the other reaching forward for balance. The background features colorful street art, vibrant buildings, and people bustling about. The alley is dimly lit, with shadows cast by the narrow walls. A mid-shot with the astronaut running from a low-angle perspective, capturing the excitement and contrast between the urban environment and the space exploration gear.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-10s/An old man in a flowing green dress and a wide-brimmed sun hat takes a leisurely stroll across the i-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">An old man in a flowing green dress and a wide-brimmed sun hat takes a leisurely stroll across the icy terrain of Antarctica during a breathtaking sunset. His weathered face and kind eyes reflect the warm hues of the setting sun, which casts long shadows and bathes the landscape in a golden glow. The man's posture is upright and confident, with his hands clasped behind his back. The background features rugged ice formations and distant mountains, with the sky painted in shades of orange, pink, and purple. The photo has a nostalgic and dreamy quality, capturing the serene beauty of the polar night. A medium shot from a slightly elevated angle.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/vbench/A cozy indoor setting with two pandas sitting on plush chairs, engaged in a thoughtful discussion ab-3.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A cozy indoor setting with two pandas sitting on plush chairs, engaged in a thoughtful discussion about an academic paper. Both pandas have black patches around their eyes and are wearing small glasses perched on their snouts. They are hunched over a stack of papers filled with complex equations and graphs, occasionally pointing at sections and nodding in agreement. One panda is gesturing animatedly with a pen, while the other listens intently. The room is softly lit with warm, ambient lighting, creating a comfortable atmosphere for scholarly debate. Medium close-up view focusing on the pandas' expressions and gestures.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-10s/A chameleon in a spy-themed outfit, blending seamlessly into diverse backgrounds. The chameleon wear-0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A chameleon in a spy-themed outfit, blending seamlessly into diverse backgrounds. The chameleon wears a sleek black suit with green and brown camouflage patterns, matching the surrounding environments. It stands in a forest setting, with leaves and branches creating a natural backdrop. The chameleon's posture is alert and poised, with its tail curled slightly behind it. Its large, expressive eyes scan the surroundings, hinting at its espionage activities. The photo captures the chameleon mid-movement, with a slight tilt of its head and a subtle shift of its body, showcasing its agility and adaptability. A dynamic close-up shot from a slightly elevated angle.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/vbench/A serene Pacific coast scene featuring the picturesque town of Carmel-by-the-Sea. The video opens wi-4.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A serene Pacific coast scene featuring the picturesque town of Carmel-by-the-Sea. The video opens with a wide shot of the vast ocean, showcasing rolling waves crashing against the rocky shoreline. The camera then pans right, revealing the sandy beach dotted with seagulls and a few lone figures walking along the water's edge. In the background, the charming coastal architecture of Carmel-by-the-Sea can be seen, with quaint houses and colorful cottages lining the streets. The sky is a mix of soft pastel hues, reflecting the tranquility of the scene. The overall atmosphere is calm and peaceful, with a gentle breeze blowing over the waves.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/vbench/A playful Welsh Corgi is energetically playing a drum kit. The corgi is standing on its hind legs, f-2.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A playful Welsh Corgi is energetically playing a drum kit. The corgi is standing on its hind legs, front paws rhythmically hitting the snare drum and cymbals. Its ears are perked up, and its tail is wagging excitedly. The corgi's expressive face shows joy and concentration as it plays. The drum kit is brightly lit against a plain background, focusing all attention on the corgi's performance. Medium close-up view, capturing the corgi's focused expression and active paws.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/vbench/A serene underwater scene featuring a translucent, bioluminescent jellyfish gently floating through -0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A serene underwater scene featuring a translucent, bioluminescent jellyfish gently floating through the vast ocean. The jellyfish has soft, undulating tentacles that emit a gentle glow, creating mesmerizing patterns as they sway gracefully in the water. The surrounding ocean is filled with ambient light filtering through the surface, casting a tranquil blue hue over the scene. Various small fish and plankton drift by in the background, adding to the sense of life and movement in the deep sea. The camera maintains a medium close-up perspective, focusing on the jellyfish's ethereal presence.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/movie-gen-10s/A dramatic and dynamic scene in the style of a disaster movie, depicting a powerful tsunami rushing -0.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A dramatic and dynamic scene in the style of a disaster movie, depicting a powerful tsunami rushing through a narrow alley in Bulgaria. The water is turbulent and chaotic, with waves crashing violently against the walls and buildings on either side. The alley is lined with old, weathered houses, their facades partially submerged and splintered. The camera angle is low, capturing the full force of the tsunami as it surges forward, creating a sense of urgency and danger. People can be seen running frantically, adding to the chaos. The background features a distant horizon, hinting at the larger scale of the tsunami. A dynamic, sweeping shot from a low-angle perspective, emphasizing the movement and intensity of the event.</p>
+    </div>
+
+    <div class="video-item">
+      <video controls preload="metadata" autoplay muted loop playsinline>
+        <source
+          src="examples/vbench/A stormtrooper from the Star Wars universe, clad in pristine white armor with a black helmet, is met-1.mp4"
+          type="video/mp4">
+      </video>
+      <p class="prompt-text">A stormtrooper from the Star Wars universe, clad in pristine white armor with a black helmet, is meticulously vacuuming a sandy beach. He bends down slightly, moving the vacuum cleaner back and forth across the sand with purposeful motions. His gloved hand firmly grips the handle of the vacuum as he navigates around rocks and debris. The sun sets behind him, casting long shadows and giving the scene a dramatic, golden glow. The background shows crashing waves and seagulls flying overhead. Medium close-up shot, focusing on the stormtrooper's actions and the sweeping motion of the vacuum.</p>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
